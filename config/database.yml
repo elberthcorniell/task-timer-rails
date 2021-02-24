@@ -24,6 +24,8 @@ default: &default
 development:
   <<: *default
   database: task_timer_rails_development
+  username: postgres
+  password: Napemr18@
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -81,5 +83,7 @@ test:
 production:
   <<: *default
   database: task_timer_rails_production
-  username: task_timer_rails
-  password: <%= ENV['TASK_TIMER_RAILS_DATABASE_PASSWORD'] %>
+  # username: task_timer_rails
+  username: postgres
+  password: Napemr18@
+  # password: <%= ENV['TASK_TIMER_RAILS_DATABASE_PASSWORD'] %>
