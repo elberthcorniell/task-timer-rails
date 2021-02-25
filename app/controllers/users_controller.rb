@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+    before_action :set_logged_in
+
     def new
         user = User.new
         render json: user
@@ -13,19 +15,27 @@ class UsersController < ApplicationController
             }
         else
             render json: {
-                success: false,
+                success: false, 
                 msg: 'Unable to create user'
             }    
         end
     end
 
+    def auth
+        user = current_user;
+        render json: {
+            success: !user.nil?,
+            data: user
+        };
+    end
+
     def login
         user = User.find_by(username: params['username']);
         if user
-            session[:user_id] = user.id;
             render json: {
                 success: true,
-                user: user
+                user: user,
+                token: create_jwt(user)
             }
         else
             render json: {
@@ -33,6 +43,13 @@ class UsersController < ApplicationController
                 msg: 'Username do not exist'
             }
         end
+    end
+
+    def logout
+        session[:user_id] = nil;
+        render json: {
+            success: true
+        }
     end
 
     def validate 
