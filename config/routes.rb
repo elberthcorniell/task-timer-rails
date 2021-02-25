@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   root 'users#new'
   resources :users, only: %i[new create show destroy login]
   
-  # get '/login' => 'users#new'
+  post '/register' => 'users#create'
   post '/login' => 'users#login'
-  # delete '/logout' => 'users#destroy'
+  delete '/logout' => 'users#logout'
+  get '/auth' => 'users#auth'
   # get '/app/' => 'groups#index'
   # get '/tasks/general' => 'tasks#general'
   # get '/tasks/done' => 'tasks#done'
